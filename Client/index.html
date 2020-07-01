@@ -15,43 +15,25 @@
 
 
 
-<div id="response">
-    <pre></pre>
-</div>
 
-<form id="my-form">
-    <input type="text" name="title" placeholder="Title" />
-    <input type="text" name="director" placeholder="Director" />
-                                                                                                                                                                                                                           
-    <button type="submit">Submit</button>
-</form>
 
-<div class="Container">
+<div class="container">
     <div id="MovieList">
-        <table  class="table table-hover">
+        <table id="my_table" class="table table-hover">
             <thead>
                 <th>Title</th><th>Year</th>
             </thead>
-            <tbody>
-                <tr data-toggle="collapse" data-target="#accordion" class="clickable collapse-row collapsed">
-                    <td id="movieTitle"></td>
-                    <td id="movieYear"></td>
-                </tr>
+            <tbody id= "movieList1" >
+                <!-- <tr id= "movieList1" data-toggle="collapse" data-target="#accordion" class="clickable collapse-row collapsed"> -->
+                    
+                <!-- </tr> -->
+               
                 <tr>
                     <td colspan="3">
                         <div id="accordion" class="collapse">Movie Details <br></br> <button type="button" class="btn btn-primary">Edit</button></div>
                     </td>
                 </tr>
-                <tr data-toggle="collapse" data-target="#accordion2" class="clickable">
-                    <td>Some Stuff</td>
-                    <td>Some more stuff</td>
-                    <td>And some more</td>
-                </tr>
-                <tr>
-                    <td colspan="6">
-                        <div id="accordion2" class="collapse">Hidden by default</div>
-                    </td>
-                </tr>
+               
             </tbody>
         </table>
     </div>
