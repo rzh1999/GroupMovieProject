@@ -1,3 +1,4 @@
+/*
 (function($){
     function processForm( e ){
         var dict = {
@@ -24,3 +25,10 @@
 
     $('#my-form').submit( processForm );
 })(jQuery);
+*/
+
+$(function(){
+    $.get("https://localhost:44325/api/movie/", function(data){
+        console.log(data);
+    })
+})
