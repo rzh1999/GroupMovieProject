@@ -5,3 +5,7 @@
   .style-btn{
     margin-left: 25px;;
   }
+ 
+  #createMovieButton{
+    text-align: center;
+  }
