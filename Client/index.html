@@ -15,48 +15,30 @@
 
 
 
-<div id="response">
-    <pre></pre>
-</div>
+    <form>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="inputTitle">Title</label>
+            <input type="text" class="form-control" id="inputTitle" placeholder="Enter Movie title....">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputDirector">Director</label>
+            <input type="text" class="form-control" id="inputDirector" placeholder="Enter Director Name....">
+          </div>
+        </div>
 
-<form id="my-form">
-    <input type="text" name="title" placeholder="Title" />
-    <input type="text" name="director" placeholder="Director" />
-                                                                                                                                                                                                                           
-    <button type="submit">Submit</button>
-</form>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+              <label for="inputGenre">Genre</label>
+              <input type="text" class="form-control" id="inputGenre" placeholder="Enter A Genre....">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputYear">Year</label>
+              <input type="text" class="form-control" id="inputYear" placeholder="Enter Year Movie Was Released....">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-<div class="Container">
+<div class="container">
     <div id="MovieList">
-        <table  class="table table-hover">
-            <thead>
-                <th>Title</th><th>Year</th>
-            </thead>
-            <tbody>
-                <tr data-toggle="collapse" data-target="#accordion" class="clickable collapse-row collapsed">
-                    <td id="movieTitle"></td>
-                    <td id="movieYear"></td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div id="accordion" class="collapse">Movie Details <br></br> <button type="button" class="btn btn-primary">Edit</button></div>
-                    </td>
-                </tr>
-                <tr data-toggle="collapse" data-target="#accordion2" class="clickable">
-                    <td>Some Stuff</td>
-                    <td>Some more stuff</td>
-                    <td>And some more</td>
-                </tr>
-                <tr>
-                    <td colspan="6">
-                        <div id="accordion2" class="collapse">Hidden by default</div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-</body>
-</html>
