@@ -2,3 +2,6 @@
 .collapse-row.collapsed + tr {
     display: none;
   }
+  .style-btn{
+    margin-left: 25px;;
+  }
