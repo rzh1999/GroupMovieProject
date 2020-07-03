@@ -1,10 +1,14 @@
 
 $(function(){
+    //hide form
     $('#createMovie').hide();
+
+    //Toggle form on button
     $("#createMovieButton").on("click", function(e){
         $("#createMovie").toggle();
     });
 
+   
     $.get("https://localhost:44325/api/movie/", function(data){
         console.log(data);
 
