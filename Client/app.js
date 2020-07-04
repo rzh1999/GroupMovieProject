@@ -66,7 +66,7 @@ $(document).ready(function() {
         function putMovie(e){
 
                 var updatedMovie = {
-                    MovieId: 1,
+                    MovieId: Number(this["movieId"].value),
                     Title: this["title"].value,
                     Director: this["director"].value,
                     Genre: this["genre"].value,
