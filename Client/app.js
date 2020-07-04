@@ -8,7 +8,7 @@ $(document).ready(function() {
         $("#createMovie").toggle();
     });
     
-    
+    /* data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>` */
     
     $.get("https://localhost:44325/api/movie/", function(data){
         console.log(data);
@@ -21,6 +21,7 @@ $(document).ready(function() {
             data-toggle="modal" data-target="#movieModal" onclick="displayMovieDetails(`+i+`)")>Details</button>
             <button id="editButton" type="button" class="btn btn-primary style-btn" 
             data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>`
+
             
             
             )
@@ -36,9 +37,6 @@ $(document).ready(function() {
             Year: this["year"].value
             
         };
-        
-       
-    
         
             $.ajax({
                 url: 'https://localhost:44325/api/movie',
@@ -60,7 +58,39 @@ $(document).ready(function() {
         }
     
             $('#createMovie').submit( processForm );
+
+
+
+            $('#updateForm').submit( putMovie);
     
+        function putMovie(e){
+
+                var updatedMovie = {
+                    MovieId: 1,
+                    Title: this["title"].value,
+                    Director: this["director"].value,
+                    Genre: this["genre"].value,
+                    Year: this["year"].value
+                };
+            
+            $.ajax({
+                url: "https://localhost:44325/api/movie/",
+                dataType: 'json',
+                type: 'put',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedMovie),
+                success: function( data, textStatus, jQxhr ){
+                    $('#response pre').html( data );
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+                    
+              });
+            
+              e.preventDefault();
+              $('#updateForm').trigger("reset");
+            }
         })
     
     
@@ -71,61 +101,30 @@ function populate(i)
     let id = i+1;
     $.get("https://localhost:44325/api/movie/", function(data){
 
-    $(".modal-body").html(`<form id="updateForm">
+    $("#updateForm").html(`
     <input type="hidden" id="movieId" name="movieId" value=`+id+`>
     <div class="form-group">
-      <label for="titleform">Title:</label>
-      <input type="title" class="form-control" placeholder="` + data[i].title + `" id="titleForm">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" placeholder="` + data[i].title + `" id="title">
     </div>
     <div class="form-group">
-      <label for="directform">Director:</label>
-      <input type="director" class="form-control" placeholder="` + data[i].director + `" id="directorForm">
+      <label for="director">Director:</label>
+      <input type="text" class="form-control" placeholder="` + data[i].director + `" id="director">
     </div>
     <div class="form-group">
-        <label for="genreform">Genre:</label>
-        <input type="genre" class="form-control" placeholder="` + data[i].genre + `" id="genreForm">
+        <label for="genre">Genre:</label>
+        <input type="text" class="form-control" placeholder="` + data[i].genre + `" id="genre">
       </div>
       <div class="form-group">
-        <label for="yearform">Year:</label>
-        <input type="year" class="form-control" placeholder="` + data[i].year + `" id="yearForm">
+        <label for="year">Year:</label>
+        <input type="text" class="form-control" placeholder="` + data[i].year + `" id="year">
       </div>
-    <button id="updateMovie" type="submit" class="btn btn-primary">Submit</button>
-  </form>`)
+      <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
+  `)
 
 
 })
 }
-
-
-
-
-$("#updateMovie").submit( function(){
-    var updatedMovie = {
-        movieId: this["movieId"].value(),
-        title: this["titleForm"].value(),
-        director: this["directorForm"].value(),
-        genre: this["genreForm"].value(),
-        year: this["yearForm"].value()
-    }
-    console.log(updatedMovie.movieId)
-    putMovie(updatedMovie.movieId, updatedMovie);
-  
-})
-
-function putMovie(id, data){
-$.ajax({
-    url: "https://localhost:44325/api/movie/" + id,
-    type: 'put',
-    dataType: 'json',
-    contentType: 'application/json',
-    data: data,
-    success: function( data ) {
-      
-        
-    }
-  });
-}
-
 
 function displayMovieDetails(i)
 {
