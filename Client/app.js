@@ -110,6 +110,10 @@ function populate(i)
         <label for="year">Year:</label>
         <input type="text" class="form-control" value="` + data[i].year + `" id="year">
       </div>
+      <div class="form-group">
+      <label for="year">Image:</label>
+      <input type="text" class="form-control" value="` + data[i].imageURL + `" id="imageURL">
+    </div>
       <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
   `)
 })
