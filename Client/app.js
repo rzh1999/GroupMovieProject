@@ -1,4 +1,3 @@
-
 $(function(){
     //hide form
     $('#createMovie').hide();
@@ -50,12 +49,7 @@ $(function(){
             $("#createMovie").trigger("reset");
            
         }
-
             $('#createMovie').submit( processForm );
-
-
-           
-
             $('#updateForm').submit( putMovie);
     
         function putMovie(e){
@@ -85,7 +79,7 @@ $(function(){
               });
             
               // Needs to wait otherwise edit won't go through?
-              sleep(6);
+              sleep(10);
               e.preventDefault();
               $('#updateForm').trigger("reset");
             }
@@ -101,7 +95,6 @@ function populate(i)
 
     $("#updateForm").html(`
     <input type="hidden" id="movieId" name="movieId" value=` + id + `>
-    <input type="hidden" id="imageURL" name="imageURL" value=` + data[i].imageURL + `>
     <div class="form-group">
       <label for="title">Title:</label>
       <input type="text" class="form-control" value="` + data[i].title + `" id="title">
@@ -122,11 +115,25 @@ function populate(i)
       <label for="year">Image:</label>
       <input type="text" class="form-control" value="` + data[i].imageURL + `" id="imageURL">
     </div>
-      <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
-  `)
+      <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>`)
 
 })
+}
 
+function displayMovieDetails(i)
+{
+    $.get("https://localhost:44325/api/movie/", function(data){
+    $(".modal-body").html(`<div class="card" style="width:400px">
+    <img class="card-img-top" src= `+ data[i].imageURL +` alt="Movie Image" "width:400px height: auto">
+    <div class="card-body">
+      <h4 class="card-title"> `+ data[i].title +` </h4>
+      <p class="card-text">` + "Director: " + data[i].director +`</p>
+      <p class="card-text"> `+ "Genre: " + data[i].genre +` </p>
+      <p class="card-text"> ` + "Year Released: " + data[i].year + `</p>
+    </div>
+  </div>`)
+    })
+}
 
 function sleep(milliseconds) {
     const date = Date.now();

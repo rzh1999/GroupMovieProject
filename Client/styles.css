@@ -1,8 +1,4 @@
-
-.collapse-row.collapsed + tr {
-    display: none;
-  }
-  .style-btn{
+.style-btn{
     margin-left: 25px;;
   }
  
