@@ -1,42 +1,82 @@
-"use strict";
-$(document).ready(function() {
+
+$(function(){
     //hide form
     $('#createMovie').hide();
-    
+
     //Toggle form on button
     $("#createMovieButton").on("click", function(e){
         $("#createMovie").toggle();
     });
-    
-    /* data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>` */
-    
+
+   
     $.get("https://localhost:44325/api/movie/", function(data){
         console.log(data);
-        
+console.log(data[0].imageUrl);
         for(let i = 0; i < data.length; i++)
         {
-            $("#movieList1").append(`<tr><td class="titleheader">${JSON.stringify(data[i].title).substring(1, data[i].title.length + 1)}</td>
-            <td class="titleheader">${JSON.stringify(data[i].year).substring(1, data[i].year.length + 1)}
-            <button id= "detailButton" type="button" class="btn btn-primary style-btn"
-            data-toggle="modal" data-target="#movieModal" onclick="displayMovieDetails(`+i+`)")>Details</button>
-            <button id="editButton" type="button" class="btn btn-primary style-btn" 
-            data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>`
+          
+          /*  $("#movieList1").append(`<tr><td class="titleheader">${JSON.stringify(data[i].title).substring(1, data[i].title.length + 1)}</td>
+           <td class="titleheader">${JSON.stringify(data[i].year).substring(1, data[i].year.length + 1)}</td><td><a class="btn btn-primary" 
+           data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+           Details</a><button type="button" class="btn btn-primary style-btn">Edit</button></td> </tr>`
+                
+            ) */
 
-            
-            
-            )
+      /*    $('#test').append(`<p>
+         <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+           ${data[i].title}
+         </a>
+         
+       </p>
+       <div class="collapse" id="collapseExample">
+        <div class="media mb-4">
+            <img class="mr-3" src="${data[i].imageURL}" alt="${data[i].title}">
+            <div class="media-body">
+                <h5 class="mt-0">${data[i].title}</h5><h5 class="mt-0">Director: ${data[i].director}</h5><h5 class="mt-0">Genre: ${data[i].genre}</h5><h5 class="mt-0">Year: ${data[i].year}</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            </div>
+        </div>
+       </div>`)
+ */
+      /*  $('#editForm').append(`<form  method="POST" name="createMovie" id="createMovie">
+       <div class="form-row">
+         <div class="form-group col-md-6">
+           <label for="title">Title</label>
+           <input type="text" class="form-control" id="title" placeholder="${data[i].title}">
+         </div>
+         <div class="form-group col-md-6">
+           <label for="director">Director</label>
+           <input type="text" class="form-control" id="director" placeholder="${data[i].director}">
+         </div>
+       </div>
+ 
+       <div class="form-row">
+           <div class="form-group col-md-6">
+             <label for="genre">Genre</label>
+             <input type="text" class="form-control" id="genre" placeholder="${data[i].genre}">
+           </div>
+           <div class="form-group col-md-6">
+             <label for="year">Year</label>
+             <input type="text" class="form-control" id="year" placeholder="${data[i].year}">
+           </div>
+         </div>
+ 
+         <button type="submitMovie" class="btn btn-primary onclick="submitForm(${data});"">Submit</button>
+   </form>`) */
         } 
-        
-        
     })
     function processForm( e ){
         var dict = {
-            Title : this["title"].value,
+        	Title : this["title"].value,
             Director: this["director"].value,
             Genre: this["genre"].value,
-            Year: this["year"].value
+            Year: this["year"].value,
+            ImageURL: this["ImageURL"].value
             
         };
+        
+       
+
         
             $.ajax({
                 url: 'https://localhost:44325/api/movie',
@@ -56,90 +96,9 @@ $(document).ready(function() {
             $("#createMovie").trigger("reset");
            
         }
-    
+
             $('#createMovie').submit( processForm );
 
-
-
-            $('#updateForm').submit( putMovie);
-    
-        function putMovie(e){
-
-                var updatedMovie = {
-                    MovieId: Number(this["movieId"].value),
-                    Title: this["title"].value,
-                    Director: this["director"].value,
-                    Genre: this["genre"].value,
-                    Year: this["year"].value,
-                    ImageURL: this["imageURL"].value
-                };
-            
-            $.ajax({
-                url: "https://localhost:44325/api/movie/",
-                dataType: 'json',
-                type: 'put',
-                contentType: 'application/json',
-                data: JSON.stringify(updatedMovie),
-                success: function( data, textStatus, jQxhr ){
-                    $('#response pre').html( data );
-                },
-                error: function( jqXhr, textStatus, errorThrown ){
-                    console.log( errorThrown );
-                }
-                    
-              });
-            
-              e.preventDefault();
-              $('#updateForm').trigger("reset");
-            }
-        })
-    
-    
-
-
-function populate(i)
-{
-    let id = i+1;
-    $.get("https://localhost:44325/api/movie/", function(data){
-
-    $("#updateForm").html(`
-    <input type="hidden" id="movieId" name="movieId" value=`+id+`>
-    <input type="hidden" id="imageURL" name="imageURL" value=`+data[i].imageURL+`>
-    <div class="form-group">
-      <label for="title">Title:</label>
-      <input type="text" class="form-control" value="` + data[i].title + `" id="title">
-    </div>
-    <div class="form-group">
-      <label for="director">Director:</label>
-      <input type="text" class="form-control" value="` + data[i].director + `" id="director">
-    </div>
-    <div class="form-group">
-        <label for="genre">Genre:</label>
-        <input type="text" class="form-control" value="` + data[i].genre + `" id="genre">
-      </div>
-      <div class="form-group">
-        <label for="year">Year:</label>
-        <input type="text" class="form-control" value="` + data[i].year + `" id="year">
-      </div>
-      <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
-  `)
-
-
+           
 })
-}
-
-function displayMovieDetails(i)
-{
-    $.get("https://localhost:44325/api/movie/", function(data){
-    $(".modal-body").html(`<div class="card" style="width:400px">
-    <img class="card-img-top" src= `+ data[i].imageURL +` alt="Movie Image" "width:400px height: auto">
-    <div class="card-body">
-      <h4 class="card-title"> `+ data[i].title +` </h4>
-      <p class="card-text">` + "Director: " + data[i].director +`</p>
-      <p class="card-text"> `+ "Genre: " + data[i].genre +` </p>
-      <p class="card-text"> ` + "Year Released: " + data[i].year + `</p>
-    </div>
-  </div>`)
-    })
-}
 
