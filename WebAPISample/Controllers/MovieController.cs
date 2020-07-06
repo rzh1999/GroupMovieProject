@@ -67,6 +67,7 @@ namespace WebAPISample.Controllers
                 movieFromDB.Director = movie.Director;
                 movieFromDB.Genre = movie.Genre;
                 movieFromDB.Year = movie.Year;
+                movieFromDB.ImageURL = movie.ImageURL;
                 _context.SaveChanges();
                 return Ok();
             }
