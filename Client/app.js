@@ -105,19 +105,19 @@ function populate(i)
     <input type="hidden" id="movieId" name="movieId" value=`+id+`>
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" class="form-control" placeholder="` + data[i].title + `" id="title">
+      <input type="text" class="form-control" value="` + data[i].title + `" id="title">
     </div>
     <div class="form-group">
       <label for="director">Director:</label>
-      <input type="text" class="form-control" placeholder="` + data[i].director + `" id="director">
+      <input type="text" class="form-control" value="` + data[i].director + `" id="director">
     </div>
     <div class="form-group">
         <label for="genre">Genre:</label>
-        <input type="text" class="form-control" placeholder="` + data[i].genre + `" id="genre">
+        <input type="text" class="form-control" value="` + data[i].genre + `" id="genre">
       </div>
       <div class="form-group">
         <label for="year">Year:</label>
-        <input type="text" class="form-control" placeholder="` + data[i].year + `" id="year">
+        <input type="text" class="form-control" value="` + data[i].year + `" id="year">
       </div>
       <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
   `)
