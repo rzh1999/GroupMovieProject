@@ -70,7 +70,8 @@ $(document).ready(function() {
                     Title: this["title"].value,
                     Director: this["director"].value,
                     Genre: this["genre"].value,
-                    Year: this["year"].value
+                    Year: this["year"].value,
+                    ImageURL: this["imageURL"].value
                 };
             
             $.ajax({
@@ -103,6 +104,7 @@ function populate(i)
 
     $("#updateForm").html(`
     <input type="hidden" id="movieId" name="movieId" value=`+id+`>
+    <input type="hidden" id="imageURL" name="imageURL" value=`+data[i].imageURL+`>
     <div class="form-group">
       <label for="title">Title:</label>
       <input type="text" class="form-control" value="` + data[i].title + `" id="title">
