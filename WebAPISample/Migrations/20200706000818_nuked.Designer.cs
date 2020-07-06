@@ -9,8 +9,8 @@ using WebAPISample.Data;
 namespace WebAPISample.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200630183847_FirstTimeSeed")]
-    partial class FirstTimeSeed
+    [Migration("20200706000818_nuked")]
+    partial class nuked
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,7 @@ namespace WebAPISample.Migrations
                             MovieId = 1,
                             Director = "Martin Scorsese",
                             Genre = "Drama",
+                            ImageURL = "./images/TheDeparted.jpg",
                             Title = "The Departed",
                             Year = "2006"
                         },
@@ -61,6 +62,7 @@ namespace WebAPISample.Migrations
                             MovieId = 2,
                             Director = "Christopher Nolan",
                             Genre = "Drama",
+                            ImageURL = "./images/TheDarkKnight.jpg",
                             Title = "The Dark Knight",
                             Year = "2008"
                         },
@@ -69,6 +71,7 @@ namespace WebAPISample.Migrations
                             MovieId = 3,
                             Director = "Christopher Nolan",
                             Genre = "Drama",
+                            ImageURL = "./images/Inception.jpg",
                             Title = "Inception",
                             Year = "2010"
                         },
@@ -77,6 +80,7 @@ namespace WebAPISample.Migrations
                             MovieId = 4,
                             Director = "David Gordon Green",
                             Genre = "Comedy",
+                            ImageURL = "./images/PineappleExpress.jpg",
                             Title = "Pineapple Express",
                             Year = "2008"
                         },
@@ -85,6 +89,7 @@ namespace WebAPISample.Migrations
                             MovieId = 5,
                             Director = "John McTiernan",
                             Genre = "Action",
+                            ImageURL = "./images/DieHard.jpg",
                             Title = "Die Hard",
                             Year = "1988"
                         });

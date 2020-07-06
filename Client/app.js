@@ -1,12 +1,13 @@
-"use strict";
-$(document).ready(function() {
+
+$(function(){
     //hide form
     $('#createMovie').hide();
-    
+
     //Toggle form on button
     $("#createMovieButton").on("click", function(e){
         $("#createMovie").toggle();
     });
+
     
     $.get("https://localhost:44325/api/movie/", function(data){
         
@@ -19,15 +20,18 @@ $(document).ready(function() {
             <button id="editButton" type="button" class="btn btn-primary style-btn" 
             data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>`)
         }        
+
     })
     function processForm( e ){
         var dict = {
-            Title : this["title"].value,
+        	Title : this["title"].value,
             Director: this["director"].value,
             Genre: this["genre"].value,
-            Year: this["year"].value
+            Year: this["year"].value,
+            ImageURL: this["ImageURL"].value
             
         };
+
             $.ajax({
                 url: 'https://localhost:44325/api/movie',
                 dataType: 'json',
@@ -48,6 +52,10 @@ $(document).ready(function() {
         }
 
             $('#createMovie').submit( processForm );
+
+
+           
+
             $('#updateForm').submit( putMovie);
     
         function putMovie(e){
@@ -116,23 +124,8 @@ function populate(i)
     </div>
       <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
   `)
-})
-}
 
-function displayMovieDetails(i)
-{
-    $.get("https://localhost:44325/api/movie/", function(data){
-    $(".modal-body").html(`<div class="card" style="width:400px">
-    <img class="card-img-top" src= `+ data[i].imageURL +` alt="Movie Image" "width:400px height: auto">
-    <div class="card-body">
-      <h4 class="card-title"> `+ data[i].title +` </h4>
-      <p class="card-text">` + "Director: " + data[i].director +`</p>
-      <p class="card-text"> `+ "Genre: " + data[i].genre +` </p>
-      <p class="card-text"> ` + "Year Released: " + data[i].year + `</p>
-    </div>
-  </div>`)
-    })
-}
+})
 
 
 function sleep(milliseconds) {

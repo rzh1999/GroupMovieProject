@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>The Samarium Movie Gallery</title>
+    <title>jQuery AJAX POST Form</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./app.js"></script>
@@ -14,18 +14,17 @@
 
   
 
-<body>
+
 <div class="container ">
 
   <div class="row ">
-  <img src="./Images/Banner2.png" class="rounded mx-auto d-block mb-4 mt-4" alt="Movie Ticket" width="100%">
+  <img src="./Images/Banner2.png" class="rounded mx-auto d-block mb-4 mt-4" alt="Movie Ticket">
   </div>
 
   <div class="row">
     <div class="col-md-4"></div>
   <button id="createMovieButton" class="btn btn-primary btn-block col-md-4 align-items-center ">Create A Movie</button>
   <div class="col-md-4"></div>
-  
   <form  method="POST" name="createMovie" id="createMovie">
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -48,94 +47,28 @@
             <input type="text" class="form-control" id="year" placeholder="Enter Year....">
           </div>
         </div>
-
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="ImageURL">Image Url</label>
+            <input type="text" class="form-control" id="ImageURL" placeholder="Enter URL....">
+          </div>
+        </div>
         <button type="submitMovie" class="btn btn-primary">Submit</button>
-    </form>
-
-    
-    </div>
-
-    <div class="container" id="MovieList">
+  </form>
+</div>
+   <!--  <div id="MovieList">
       
         <table id="my_table" class="table table-hover">
             <thead>
                 <th>Title</th><th>Year</th>
             </thead>
-            <tbody id= "movieList1" >
-               
-                <tr>
-                    <td colspan="3">
-                        <div id="accordion" class="collapse">Movie Details <br></br> <button type="button" class="btn btn-primary">Edit</button></div>
-                    </td>
-                </tr>
-               
+            <tbody id= "movieList1" > 
+              
             </tbody>
         </table>
-    </div>
-    
-</div>
-
-<div id="movieForm">
-    
-</div>
-
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel">Edit</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form method="POST" id="updateForm">
-        <div class="modal-body">
-
-
-
-            <!-- <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button> -->
-            
-    <script type="text/javascript">
-        function form_submit() {
-      console.log(document.getElementById("updateForm"));
-      document.getElementById("updateForm").submit();
-    }    
-    </script>
-
-
-
-</div>
-</form>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<div class="modal" id="movieModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Movie Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      
-      <div class="modal-body">
-        
-      </div>
-    
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
+    </div> -->
+  
+</div><!--container-->
 
 
 </body>
