@@ -8,62 +8,19 @@ $(function(){
         $("#createMovie").toggle();
     });
 
-   
+    
     $.get("https://localhost:44325/api/movie/", function(data){
-        console.log(data);
-console.log(data[0].imageUrl);
+        
         for(let i = 0; i < data.length; i++)
         {
-          
-          /*  $("#movieList1").append(`<tr><td class="titleheader">${JSON.stringify(data[i].title).substring(1, data[i].title.length + 1)}</td>
-           <td class="titleheader">${JSON.stringify(data[i].year).substring(1, data[i].year.length + 1)}</td><td><a class="btn btn-primary" 
-           data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-           Details</a><button type="button" class="btn btn-primary style-btn">Edit</button></td> </tr>`
-                
-            ) */
+            $("#movieList1").append(`<tr><td class="titleheader">${JSON.stringify(data[i].title).substring(1, data[i].title.length + 1)}</td>
+            <td class="titleheader">${JSON.stringify(data[i].year).substring(1, data[i].year.length + 1)}
+            <button id= "detailButton" type="button" class="btn btn-primary style-btn"
+            data-toggle="modal" data-target="#movieModal" onclick="displayMovieDetails(`+i+`)")>Details</button>
+            <button id="editButton" type="button" class="btn btn-primary style-btn" 
+            data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>`)
+        }        
 
-      /*    $('#test').append(`<p>
-         <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-           ${data[i].title}
-         </a>
-         
-       </p>
-       <div class="collapse" id="collapseExample">
-        <div class="media mb-4">
-            <img class="mr-3" src="${data[i].imageURL}" alt="${data[i].title}">
-            <div class="media-body">
-                <h5 class="mt-0">${data[i].title}</h5><h5 class="mt-0">Director: ${data[i].director}</h5><h5 class="mt-0">Genre: ${data[i].genre}</h5><h5 class="mt-0">Year: ${data[i].year}</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-       </div>`)
- */
-      /*  $('#editForm').append(`<form  method="POST" name="createMovie" id="createMovie">
-       <div class="form-row">
-         <div class="form-group col-md-6">
-           <label for="title">Title</label>
-           <input type="text" class="form-control" id="title" placeholder="${data[i].title}">
-         </div>
-         <div class="form-group col-md-6">
-           <label for="director">Director</label>
-           <input type="text" class="form-control" id="director" placeholder="${data[i].director}">
-         </div>
-       </div>
- 
-       <div class="form-row">
-           <div class="form-group col-md-6">
-             <label for="genre">Genre</label>
-             <input type="text" class="form-control" id="genre" placeholder="${data[i].genre}">
-           </div>
-           <div class="form-group col-md-6">
-             <label for="year">Year</label>
-             <input type="text" class="form-control" id="year" placeholder="${data[i].year}">
-           </div>
-         </div>
- 
-         <button type="submitMovie" class="btn btn-primary onclick="submitForm(${data});"">Submit</button>
-   </form>`) */
-        } 
     })
     function processForm( e ){
         var dict = {
@@ -74,10 +31,7 @@ console.log(data[0].imageUrl);
             ImageURL: this["ImageURL"].value
             
         };
-        
-       
 
-        
             $.ajax({
                 url: 'https://localhost:44325/api/movie',
                 dataType: 'json',
@@ -99,6 +53,81 @@ console.log(data[0].imageUrl);
 
             $('#createMovie').submit( processForm );
 
+
            
+
+            $('#updateForm').submit( putMovie);
+    
+        function putMovie(e){
+
+                var updatedMovie = {
+                    MovieId: Number(this["movieId"].value),
+                    Title: this["title"].value,
+                    Director: this["director"].value,
+                    Genre: this["genre"].value,
+                    Year: this["year"].value,
+                    ImageURL: this["imageURL"].value
+                };
+            
+            $.ajax({
+                url: "https://localhost:44325/api/movie/",
+                dataType: 'json',
+                type: 'put',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedMovie),
+                success: function( data, textStatus, jQxhr ){
+                    $('#response pre').html( data );
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+                    
+              });
+            
+              // Needs to wait otherwise edit won't go through?
+              sleep(6);
+              e.preventDefault();
+              $('#updateForm').trigger("reset");
+            }
+        })
+    
+    
+
+// Insert form inside modal
+function populate(i)
+{
+    let id = i+1;
+    $.get("https://localhost:44325/api/movie/", function(data){
+
+    $("#updateForm").html(`
+    <input type="hidden" id="movieId" name="movieId" value=` + id + `>
+    <input type="hidden" id="imageURL" name="imageURL" value=` + data[i].imageURL + `>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" value="` + data[i].title + `" id="title">
+    </div>
+    <div class="form-group">
+      <label for="director">Director:</label>
+      <input type="text" class="form-control" value="` + data[i].director + `" id="director">
+    </div>
+    <div class="form-group">
+        <label for="genre">Genre:</label>
+        <input type="text" class="form-control" value="` + data[i].genre + `" id="genre">
+      </div>
+      <div class="form-group">
+        <label for="year">Year:</label>
+        <input type="text" class="form-control" value="` + data[i].year + `" id="year">
+      </div>
+      <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
+  `)
+
 })
 
+
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
