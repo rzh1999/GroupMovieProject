@@ -8,10 +8,7 @@ $(document).ready(function() {
         $("#createMovie").toggle();
     });
     
-    /* data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>` */
-    
     $.get("https://localhost:44325/api/movie/", function(data){
-        console.log(data);
         
         for(let i = 0; i < data.length; i++)
         {
@@ -20,14 +17,8 @@ $(document).ready(function() {
             <button id= "detailButton" type="button" class="btn btn-primary style-btn"
             data-toggle="modal" data-target="#movieModal" onclick="displayMovieDetails(`+i+`)")>Details</button>
             <button id="editButton" type="button" class="btn btn-primary style-btn" 
-            data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>`
-
-            
-            
-            )
-        } 
-        
-        
+            data-toggle="modal" data-target="#editModal"  onclick="populate(`+i+`)")>Edit</button></td></tr>`)
+        }        
     })
     function processForm( e ){
         var dict = {
@@ -37,7 +28,6 @@ $(document).ready(function() {
             Year: this["year"].value
             
         };
-        
             $.ajax({
                 url: 'https://localhost:44325/api/movie',
                 dataType: 'json',
@@ -56,11 +46,8 @@ $(document).ready(function() {
             $("#createMovie").trigger("reset");
            
         }
-    
+
             $('#createMovie').submit( processForm );
-
-
-
             $('#updateForm').submit( putMovie);
     
         function putMovie(e){
@@ -89,6 +76,8 @@ $(document).ready(function() {
                     
               });
             
+              // Needs to wait otherwise edit won't go through?
+              sleep(6);
               e.preventDefault();
               $('#updateForm').trigger("reset");
             }
@@ -96,15 +85,15 @@ $(document).ready(function() {
     
     
 
-
+// Insert form inside modal
 function populate(i)
 {
     let id = i+1;
     $.get("https://localhost:44325/api/movie/", function(data){
 
     $("#updateForm").html(`
-    <input type="hidden" id="movieId" name="movieId" value=`+id+`>
-    <input type="hidden" id="imageURL" name="imageURL" value=`+data[i].imageURL+`>
+    <input type="hidden" id="movieId" name="movieId" value=` + id + `>
+    <input type="hidden" id="imageURL" name="imageURL" value=` + data[i].imageURL + `>
     <div class="form-group">
       <label for="title">Title:</label>
       <input type="text" class="form-control" value="` + data[i].title + `" id="title">
@@ -123,8 +112,6 @@ function populate(i)
       </div>
       <button onclick="form_submit()" type="submit" class="btn btn-primary" form="updateForm">Submit</button>
   `)
-
-
 })
 }
 
@@ -143,3 +130,11 @@ function displayMovieDetails(i)
     })
 }
 
+
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
